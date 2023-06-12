@@ -7,7 +7,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true,
           references: {
-            model: 'blogs_posts',
+            model: 'blog_posts',
             key: 'id'
           }
         },
