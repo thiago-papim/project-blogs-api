@@ -22,6 +22,30 @@ const createUser = async (user) => {
   await User.create({ displayName, email, password, image });
 };
 
+const getAll = async () => {
+  const allUsers = await User.findAll();
+  const newAllUsers = allUsers.map((e) => {
+    const newUser = e;
+    newUser.password = undefined;
+    return newUser;
+  });
+  return newAllUsers;
+};
+
+const getById = async (id) => {
+  try {
+    const user = await User.findOne({ where: { id } });
+    if (user) {
+      user.password = undefined;
+    }
+    return user || { message: 'User does not exist' };
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createUser,
+  getAll,
+  getById,
 };
