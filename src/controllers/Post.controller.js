@@ -1,8 +1,15 @@
-const { getAll, getById, deleteById } = require('../service/Post.service');
+const { getAll, getById, deleteById, getFilter } = require('../service/Post.service');
 
 const allPosts = async (req, res) => {
   const allUsers = await getAll();
   return res.status(200).json(allUsers);
+};
+
+const filterPost = async (req, res) => {
+  const textSearch = req.query.q;
+  const result = await getFilter(textSearch);
+  console.log(result);
+  return res.status(200).json(result);
 };
 
 const getPostById = async (req, res) => {
@@ -28,4 +35,5 @@ module.exports = {
   allPosts,
   getPostById,
   deletePost,
+  filterPost,
 };

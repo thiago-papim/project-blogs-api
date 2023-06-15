@@ -4,7 +4,7 @@ const { userCreate,
   usersAll, getUserById, deleteUserId } = require('./controllers/User.controller');
 const { validateToken } = require('./middlewares/validateToken');
 const { categoriesAll, categoriesCreate } = require('./controllers/Category.controller');
-const { allPosts, getPostById, deletePost } = require('./controllers/Post.controller');
+const { allPosts, getPostById, deletePost, filterPost } = require('./controllers/Post.controller');
 
 // ...
 
@@ -23,6 +23,7 @@ app.get('/user', validateToken, usersAll);
 app.get('/user/:id', validateToken, getUserById);
 app.get('/categories', validateToken, categoriesAll);
 app.post('/categories', validateToken, categoriesCreate);
+app.get('/post/search', validateToken, filterPost);
 app.get('/post', validateToken, allPosts);
 app.get('/post/:id', validateToken, getPostById);
 app.delete('/post/:id', validateToken, deletePost);
