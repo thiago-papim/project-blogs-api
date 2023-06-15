@@ -21,7 +21,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
   try {
-    const user = await BlogPost.findByPk(id, {
+    const post = await BlogPost.findByPk(id, {
       include: [
         { 
           model: User,
@@ -35,12 +35,24 @@ const getById = async (id) => {
         },
       ],
     });
-    console.log(user);
-    return user || { message: 'Post does not exist' };
+    return post || { message: 'Post does not exist' };
   } catch (error) { return error; }
+};
+
+const deleteById = async (id, objToken) => {
+  const post = await BlogPost.findByPk(id);
+  if (!post) {
+    return { message: 'Post does not exist' };
+  }
+  const { userId } = post;
+  if (userId !== objToken.id) {
+    return { message: 'Unauthorized user' };
+  }
+  await BlogPost.destroy({ where: { id } });
 };
 
 module.exports = {
   getAll,
   getById,
+  deleteById,
 };

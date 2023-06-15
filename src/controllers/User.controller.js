@@ -1,4 +1,4 @@
-const { createUser, getAll, getById } = require('../service/User.service');
+const { createUser, getAll, getById, deleteUser } = require('../service/User.service');
 const { tokenGenerate } = require('../utils/JWT');
 
 const userCreate = async (req, res) => {
@@ -25,8 +25,15 @@ const getUserById = async (req, res) => {
   res.status(200).json(getUser);
 };
 
+const deleteUserId = async (req, res) => {
+  const { id } = req.user;
+  await deleteUser(id);
+  return res.status(204).json({ message: 'apagado' });
+};
+
 module.exports = {
   userCreate,
   usersAll,
   getUserById,
+  deleteUserId,
 };

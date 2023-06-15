@@ -1,13 +1,13 @@
 const { User } = require('../models');
 
 const validateUser = async (email, password) => {
-  const users = await User.findAll();
-  const arrUsers = users
+  const arrUsers = await User.findAll();
+  const user = arrUsers
     .find((e) => e.dataValues.email === email && e.dataValues.password === password);
-  if (!arrUsers) {
+  if (!user) {
     return { message: 'Invalid fields' };
   }
-  return arrUsers;
+  return user;
 };
 
 module.exports = {

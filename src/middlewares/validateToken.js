@@ -6,7 +6,8 @@ const validateToken = (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    verifyToken(authorization);
+    const objToken = verifyToken(authorization);
+    req.user = objToken;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });

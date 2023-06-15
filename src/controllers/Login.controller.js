@@ -10,10 +10,10 @@ const login = async (req, res) => {
   }
   const validateEmailPassword = await validateUser(email, password);
   if (validateEmailPassword.message) {
-    console.log('oi');
     return res.status(400).json(validateEmailPassword);
   }
-  const token = tokenGenerate(email);
+  const { id } = validateEmailPassword;
+  const token = tokenGenerate({ id, email });
   return res.status(200).json({ token });
 };
 
