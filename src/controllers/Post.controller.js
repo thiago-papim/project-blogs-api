@@ -1,4 +1,5 @@
-const { getAll, getById, deleteById, getFilter, updateById, createPost } = require('../service/Post.service');
+const { getAll, getById,
+   deleteById, getFilter, updateById, createPost } = require('../service/Post.service');
 
 const allPosts = async (req, res) => {
   const allUsers = await getAll();
