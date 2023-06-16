@@ -1,4 +1,4 @@
-const { getAll, getById, deleteById, getFilter, updateById } = require('../service/Post.service');
+const { getAll, getById, deleteById, getFilter, updateById, createPost } = require('../service/Post.service');
 
 const allPosts = async (req, res) => {
   const allUsers = await getAll();
@@ -43,10 +43,20 @@ const updatePost = async (req, res) => {
   return res.status(200).json(newPost);
 };
 
+const newPost = async (req, res) => {
+  const objToken = req.user;
+  const post = await createPost(req.body, objToken);
+  if (post.message) {
+    return res.status(400).json({ message: post.message });
+  }
+  return res.status(201).json(post);
+};
+
 module.exports = {
   allPosts,
   getPostById,
   deletePost,
   filterPost,
   updatePost,
+  newPost,
 };

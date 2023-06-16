@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { BlogPost, User, Category } = require('../models');
+const { BlogPost, User, Category, PostCategory } = require('../models');
 
 const includesPost = [
   { 
@@ -70,10 +70,34 @@ const updateById = async (idAndBody, objToken) => {
   return newPost;
 };
 
+const validationCategories = (arr1, arr2) => {
+  const teste = arr1.every((numArr1) => arr2.some((numArr2) => numArr2 === numArr1));
+  return teste;
+};
+
+const createPost = async ({ title, content, categoryIds }, { id }) => {
+  const arrBody = [title, content, categoryIds];
+  if (arrBody.some((e) => !e)) {
+    return { message: 'Some required fields are missing' };
+  }
+  const allCategories = await Category.findAll();
+  const mapCategories = allCategories.map((e) => e.dataValues.id);
+  if (!validationCategories(categoryIds, mapCategories)) {
+    return { message: 'one or more "categoryIds" not found' };
+  }
+  const { dataValues } = await BlogPost.create({ title, content, userId: id });
+  const postById = await BlogPost.findByPk(dataValues.id);
+  const promissesCategory = categoryIds
+    .map((e) => PostCategory.create({ postId: dataValues.id, categoryId: e }));
+  await Promise.all(promissesCategory);
+  return postById.dataValues;
+};
+
 module.exports = {
   getAll,
   getById,
   deleteById,
   getFilter,
   updateById,
+  createPost,
 };
