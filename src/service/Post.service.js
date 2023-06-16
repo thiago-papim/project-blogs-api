@@ -43,11 +43,11 @@ const getFilter = async (textSearch) => {
 const deleteById = async (id, objToken) => {
   const post = await BlogPost.findByPk(id);
   if (!post) {
-    return { message: 'Post does not exist' };
+    return { code: 404, message: 'Post does not exist' };
   }
   const { userId } = post;
   if (userId !== objToken.id) {
-    return { message: 'Unauthorized user' };
+    return { code: 401, message: 'Unauthorized user' };
   }
   await BlogPost.destroy({ where: { id } });
 };
@@ -55,12 +55,12 @@ const deleteById = async (id, objToken) => {
 const updateById = async (idAndBody, objToken) => {
   const { id, title, content } = idAndBody;
   if (!title || !content) {
-    return { message: 'Some required fields are missing' };
+    return { code: 400, message: 'Some required fields are missing' };
   }
   const post = await BlogPost.findByPk(id);
   const { userId } = post;
   if (userId !== objToken.id) {
-    return { message: 'Unauthorized user' };
+    return { code: 401, message: 'Unauthorized user' };
   }
   await BlogPost.update(
     { title, content },

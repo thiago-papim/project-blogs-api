@@ -27,7 +27,7 @@ const deletePost = async (req, res) => {
   const objToken = req.user;
   const post = await deleteById(id, objToken);
   if (post && post.message) {
-    res.status(404).json({ message: post.message });
+    res.status(post.code).json({ message: post.message });
   }
   return res.status(204).end();
 };
@@ -39,7 +39,7 @@ const updatePost = async (req, res) => {
   const idAndBody = { id, title, content };
   const newPost = await updateById(idAndBody, objToken);
   if (newPost && newPost.message) {
-    return res.status(401).json({ message: newPost.message });
+    return res.status(newPost.code).json({ message: newPost.message });
   }
   return res.status(200).json(newPost);
 };
