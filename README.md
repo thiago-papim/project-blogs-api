@@ -30,25 +30,29 @@ Seja você um blogueiro experiente ou alguém que está iniciando no mundo dos b
 ```
 git clone git@github.com:thiago-papim/project-trybe-futebol-clube.git
 ```
-2. Instalar as dependências
-```
-npm install
-```
-3. Subir os containers<br>
+2. Subir os containers<br>
 Iremos subir 2 containers no total, sendo eles backend e database
 ```
 docker-compose up -d --build 
 ```
-4. Acessar o container do backend
+3. Acessar o container do backend
 ```
 docker exec -it blogs_api bash
 ```
+4. Criar e popular o banco de dados<br>
+```
+npm run predev
+```
 5. Criar e popular o banco de dados<br>
 ```
-npm run predev && npm run seed && npm run dev
+npm run seed
+```
+6. Criar e popular o banco de dados<br>
+```
+npm run dev
 ```
 
-Com isso estará funcionando
+Com isso estará funcionando.
 
 </details>
 
