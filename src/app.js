@@ -8,11 +8,8 @@ const { allPosts,
   getPostById, 
   deletePost, filterPost, updatePost, newPost } = require('./controllers/Post.controller');
 
-// ...
-
 const app = express();
 
-// não remova ou mova esse endpoint
 app.get('/', (_request, response) => {
   response.send();
 });
@@ -32,8 +29,5 @@ app.delete('/post/:id', validateToken, deletePost);
 app.delete('/user/me', validateToken, deleteUserId);
 app.put('/post/:id', validateToken, updatePost);
 app.post('/post', validateToken, newPost);
-// ...
 
-// É importante exportar a constante `app`,
-// para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
