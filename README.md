@@ -28,7 +28,7 @@ Seja você um blogueiro experiente ou alguém que está iniciando no mundo dos b
 
 1. Clone o repositório
 ```
-git clone git@github.com:thiago-papim/project-trybe-futebol-clube.git
+git clone git@github.com:thiago-papim/project-blogs-api.git
 ```
 2. Subir os containers<br>
 Iremos subir 2 containers no total, sendo eles backend e database
